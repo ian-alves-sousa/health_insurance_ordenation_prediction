@@ -1,15 +1,15 @@
 # Vou fazer o README AINDA - Usando como base o abaixo
 
-# Rossman Drugstore Sales Prediction
+# Health Insurance Cross Sell Prediction
 
 <div align="center">
 <img src="img/rossmann_logo.png" />
 </div>
 
 # Introdução 
-Esse é um projeto end-to-end de Data Science com modelo de regressão adaptada para séries temporais. No qual criamos 4 tipos de modelos para predizer o valor das vendas das lojas nas próximas 6 semanas. As previsões podem ser acessadas pelo usuário por meio de um BOT no aplicativo do Telegram.
+Este é um projeto end-to-end de Data Science de um modelo de Classificação, cujo objetivo é oferecer a seus clientes de planos de saúde um novo produto: o seguro de automóveis. O principal objetivo do projeto é classificar os clientes com maior probabilidade de compra deste novo produto, de forma a otimizar a eficácia da equipa de vendas, fazendo apenas contatos com clientes com maior probabilidade de compra. As previsões podem ser acessadas pelo usuário através de uma planilha do Google Sheets, que ao executar o comando, ordena os cliente através da sua propensão de compra.
 
-Este repositório contém a solução para a resolução de uma problema do Kaggle: https://www.kaggle.com/c/rossmann-store-sales 
+Este repositório contém a solução para a resolução de uma problema do Kaggle: [https://www.kaggle.com/datasets/anmolkumar/health-insurance-cross-sell-prediction](https://www.kaggle.com/datasets/anmolkumar/health-insurance-cross-sell-prediction)
 
 Esse projeto faz parte da "Comunidade DS", que é um ambiente de estudo que promove o aprendizado, execução, e discussão de projetos de Data Science.
 
@@ -43,60 +43,59 @@ Esse projeto foi desenvolvido seguindo o método CRISP-DS(Cross-Industry Standar
 # 1. Descrição e Problema de Negócio
 
 ### 1.1 Descrição
-**Rossman Sales Drugstore** é uma empresa que opera mais de 3000 drogarias em 7 países europeus. Atualmente os gerentes da loja Rossman têm a tarefa de prever suas vendas diárias com até seis semanas de antecedência. As vendas das lojas são influenciadas por muitos fatores, incluindo promoções, competição, feriados escolares e estaduais, sazonalidade e localidade. Atualmente essa previsão é feita por meio de uma simples média das vendas de cada loja. 
+Uma empresa que oferece planos de saúde para seus clientes. A equipe do produto está analisando a possibilidade de oferecer um novo produto ao cliente segurador: o seguro de automóveis. À semelhança do seguro de saúde, os clientes deste novo plano de seguro automóvel têm de pagar um valor anual à seguradora para obter um valor segurado pela empresa, destinado aos custos de um eventual acidente ou danos na viatura.
 
 ### 1.2 Problema de Negócio
-Foi feita uma reunião entre o CEO e os sócios da Rossman e foi definido que a empresa irá investir nas reformas das lojas da rede Rossman. Para que essa reforma seja possível será necessário prever o valor de vendas de cada loja de maneira mais assertiva, para que assim o CEO tenha uma melhor noção do quanto investir em cada loja. 
+A empresa pesquisou 381.110 clientes sobre seu interesse em adquirir o novo produto, o seguro de automóveis, e quer usar esses dados para ordenar outros 127.038 clientes que não responderam a pesquisa quanto a sua propensão em aderir ao novo seguro ou não. Atualmente a lista é ordenada por um modelo aleatório, com ordenação com idade ou tempo de seguro.
 
-Dito isso,a empresa decidiu contratar um Cientista de Dados para realizar as seguintes tarefas:
+Nesse contexto, você foi contratado como Consultor Data Scientist para construir um modelo que prevê se o cliente teria interesse ou não em adquirir o novo seguro de automóvel. Com sua solução, a equipe de vendas espera priorizar os clientes com maior propensão à obtenção do novo produto e, assim, otimizar a campanha fazendo contatos apenas com clientes com maior probabilidade de compra.
 
-**- Realizar a previsão das vendas de cada uma das lojas nas pŕoxima seis semanas.**
+Como resultado de sua consultoria, você precisará entregar um relatório contendo algumas análises e respostas para as seguintes perguntas:
 
-**- Fornecer ao CEO uma forma de consulta rápida dessas previsões por meio do celular.**
+**- Principais Insights dos atributos mais relevantes dos clientes interessados em adquirir um seguro de automóvel.**
 
+**- Qual é a porcentagem de interesse dos clientes em adquirir um seguro de automóvel que a equipe de vendas conseguirá atingir com 20.000 ligações?**
+
+**- Qual é a porcentagem de interesse dos clientes em adquirir um seguro de automóvel que a equipe de vendas conseguirá atingir com 40.000 ligações?**
+
+**- Quantas ligações a equipe de vendas precisa para atingir 80% dos clientes interessados em contratar um seguro de automóvel?**
 
 # 2. Base de Dados e Premissas de Negócio
 ## 2.1 Base de Dados
-O conjunto de dados total possui as informações referentes 1115 lojas e possuem os seguintes atributos:
+O conjunto de dados total possui as informações referentes 381.110 clientes e possuem os seguintes atributos:
 | **Atributos** |  **Descrição**  |
 | ------------------- | ------------------- |
-|  id | Um Id que representa um (Store, Date) concatenado dentro do conjunto de teste |
-|  Store |  Um id único para cada loja |
-|  Sales |  O volume de vendas em um determinado dia |
-|  Customers |  O número de clientes em um determinado dia |
-|  Open |  Um indicador para saber se a loja estava aberta: 0 = fechada, 1 = aberta |
-|  StateHoliday |  Indica um feriado estadual. Normalmente todas as lojas, com poucas exceções, fecham nos feriados estaduais. Observe que todas as escolas fecham nos feriados e finais de semana. a = feriado, b = feriado da Páscoa, c = Natal, 0 = Nenhum |
-| SchoolHoliday |  Indica se (Store, Date) foi afetada pelo fechamento de escolas públicas |
-|  StoreType |  Diferencia entre 4 modelos de loja diferentes: a, b, c, d |
-|  Assortment |  Descreve um nível de sortimento: a = básico, b = extra, c = estendido |
-|  CompetitionDistance |  Distância em metros até a loja concorrente mais próxima |
-|  CompetitionOpenSince[Month/Year] |  Apresenta o ano e mês aproximados em que o concorrente mais próximo foi aberto |
-|  Promo |  Indica se uma loja está fazendo uma promoção naquele dia |
-|  Promo2 |  Promo2 é uma promoção contínua e consecutiva para algumas lojas: 0 = a loja não está participando, 1 = a loja está participando |
-|  Promo2Since[Year/Week] |  Descreve o ano e a semana em que a loja começou a participar da Promo2 |
-|  PromoInterval | Descreve os intervalos consecutivos de início da promoção 2, nomeando os meses em que a promoção é iniciada novamente. Por exemplo. "Fev, maio, agosto, novembro" significa que cada rodada começa em fevereiro, maio, agosto, novembro de qualquer ano para aquela loja |
+| id | ID único que diferencia cada cliente |
+| Gender |  Gênero do cliente |
+| Age|  Idade do cliente |
+| Driving_License |  O cliente não possui Permissão para Dirigir, 1 : O cliente já possui Permissão para Dirigir |
+| Region_Code |  Código exclusivo da região do cliente |
+| Previously_Insured |  Cliente já tem Seguro de Automóvel, 0 : Cliente não tem Seguro de Automóvel |
+| Vehicle_Age |  Idade do Veículo - Menos que 1 ano, entre 1 e 2 anos, mais que 2 anos |
+| Vehicle_Damage |  O cliente teve seu veículo danificado no passado. 0 : O cliente não teve seu veículo danificado no passado. |
+| Annual_Premium |  O valor que o cliente precisa pagar de segeuro de saúde por ano |
+| Policy_Sales_Channel |  Código anônimo para o canal de contato com o cliente, ou seja, por correio, por telefone, pessoalmente, etc. |
+| Vintage |  Número de dias, o cliente foi associado à empresa |
+| Response |  O cliente está interessado, 0: O cliente não está interessado |
+
 ## 2.2 Premissas de Negócio
-Para realizar esse projeto as seguintes premissas de negócio foram adotadas:
-* Os dados de costumers foram descartados, visto que para utilizar esse atributo teríamos que calcular uma previsão de número de clientes que pode-se tornar um projeto a parte complementar a este.
-* Os dias que as lojas encontram-se fechadas foram descartadas.
-* Só foram consideradas as entradas que obtiveram o valor de venda ("SALES") maior que 0.
-* Para lojas que não tinham informação de Competition Distance foi adotado um valor arbitrário alto para efeitos de comparação.
+Nenhuma coluna foi excluida na análise do projeto. Cada linha representa um cliente e cada coluna contém alguns atributos que descrevem esse cliente, além de sua resposta à pesquisa, na qual ele mencionou seu interesse ou não em adquirir o novo produto de seguro.
+
 # 3. Estratégia de Solução
 A estratégia de solução foi a seguinte:
 ### Passo 01. Descrição dos Dados
-Nesse passo foi verificado alguns aspectos do conjunto de dados, como: nome de colunas, dimensões, tipos de dados, checagem e preenchimento de dados faltantes (NA), análise descritiva dos dados e quais suas variáveis categóricas.
+Nesse passo foi verificado alguns aspectos do conjunto de dados, como: nome de colunas, dimensões, tipos de dados, checagem de dados faltantes (NA), análise descritiva dos dados e quais suas variáveis categóricas.
 ### Passo 02. Featuring Engineering
 Na featuring engineering foi derivado novos atributos(colunas) baseados nas variáveis originais, possibilitando uma melhor descrição do fenômeno daquela variável.
-
 ### Passo 03. Filtragem de Variáveis
-O conjunto de dados foi filtrado por linhas para que levássemos em consideração apenas as lojas que estão abertas e que realizaram vendas ( open != 0 e sales > 0) e por coluna foi feita um drop das variáveis que não agregam valor de conhecimento ou foram derivados para outras variáveis.
+Verificando a necessidade de filtrar o conjunto de dados com base em uma variável que não interessa ao projeto em si.
 ### Passo 04. Análise Exploratória dos Dados (EDA)
 Exploração dos Dados com objetivo de encontrar Insights para o melhor entendimento do Negócio. 
-Foram feitas também análises univariadas, bivariadas e multivariadas, obtendo algumas propriedades estatísticas que as descrevem, e mais importante  a correlação entre as variáveis.
+Foram feitas também análises univariadas, bivariadas e multivariadas, obtendo algumas propriedades estatísticas que as descrevem, e mais importante respondendo perguntas sobre o negócio.
 ### Passo 05. Preparação dos Dados
 Sessão que trata da preparação dos dados para que os algoritmos de Machine Learning possam ser aplicados. Foram realizados alguns tipos de escala e encoding para que as variáveis categóricas se tornassem numéricas.
 ### Passo 06. Seleção de Variáveis do Algoritmo
-A seleção dos atributos foi realizada utilizando o método de seleção de variáveis Boruta. No qual os atributos mais significativos foram selecionados para que a performance do modelo fosse maximizada.
+A seleção dos atributos foi realizada utilizando o método de seleção de variáveis Boruta, sem muito efeito, dessa forma, foi realizado um estudo de importância das colunas, no qual os atributos mais significativos foram selecionados para que a performance do modelo fosse maximizada.
 ### Passo 07. Modelo de Machine Learning
 Realização do treinamento dos modelos de Machine Learning . O modelo que apresentou a melhor perfomance diante a base de dados com cross-validation aplicada seguiu adiante para a hiper parametrização das variáveis daquele modelo, visando otimizar a generalização do modelo.
 ### Passo 08. Hyper Parameter Fine Tuning
@@ -104,10 +103,9 @@ Foi encontrado os melhores parâmetros que maximizavam o aprendizado do modelo. 
 ### Passo 09. Conversão do Desempenho do Modelo em Valor de Negócio
 Nesse passo o desempenho do modelo foi analisado mediante uma perspectiva de negócio,e traduzido para valores de negócio.
 ### Passo 10. Deploy do Modelo em Produção 
-Publicação do modelo em um ambiente de produção em nuvem (Heroku) para que fosse possível o acesso de pessoas ou serviços para consulta dos resultados e com isso melhorar a decisão de negócio da empresa.
-
-### Passo 11. Telegram Bot
-Criação de um bot no Aplicativo de mensagens do Telegram. Cuja consulta das previsões podem ser feitas de qualquer lugar a qualquer momento apenas utilizando uma conexão com a internet e o aplicativo no smartphone.
+Publicação do modelo em um ambiente de produção em nuvem (Render) para que fosse possível o acesso de pessoas ou serviços para consulta dos resultados e com isso melhorar a decisão de negócio da empresa.
+### Passo 11. Google SpreadSheets
+Foi desenvolvido um script no Google Sheets em que os dados de entrada são os atributos e informações dos clientes e o resultado desse script é uma tabela com os atributos do cliente ordenado pela sua propensão a adquirir o novo seguro de automóvel.
 
 # 4. Exploration Data Analysis 
 ## 4.1 Análise Univariada
@@ -116,144 +114,151 @@ Criação de um bot no Aplicativo de mensagens do Telegram. Cuja consulta das pr
 ![Numerical-Variables!](img/analise_univariada.png)
 
 ## 4.2 Análise Bivariada
-### H2. Lojas com competidores mais próximos deveriam vender menos.
-**FALSO** Lojas com competidores MAIS próximos vendem MAIS.
-* No 1º gráfico podemos ver que a maioria dos dados estão concentrados num range de distância de 0 a 25000. 
-* No 2º gráfico foi feito um agrupamento por intervalos de distância, como observado as lojas que tem competidores mais próximos tem mais vendas.
-* O heatmap demonstra uma correlação negativa, isso significa que a variável tem uma relevância média na influência das vendas e quando há influência, é no geral negativa.
+### H2 - Pessoas mais velhas tem uma tendência maior de se interessarem pelo seguro.
+**FALSO** Quanto maior a idade, MENOR a tendência de se interessar pelo seguro de automóveis.
+* Nos gráficos da 1ª linha podemos ver que a base apresenta uma maior quantidade de clientes entre 20 e 30 anos e mostra uma linha de tendência crescente, quanto maior a idade, menos amostrar na base.
+* Nos gráficos da 2ª linha podemos ver a relação da idade de clientes que aceitariam o seguro, com a predominância de clientes entre 40 e 50 anos, com uma linha de tendência decrescente, quanto maior a idade menos clientes.
+* Dessa forma, entre os clientes que aceitariam o seguro há uma predominância de clientes mais velhos, contudo, a linha de tendência mostra que quanto mais idade, há menos clientes que aceitariam o seguro.
  
 ![H2!](img/h2.png)
 
-### H3. Lojas com competidores à mais tempo deveriam vender mais.
-**FALSO**  Lojas com competidores à MAIS tempo vendem MENOS. 
-* A variável "competition_time_month" foi criada e indica há quanto tempo em meses aquela loja enfreta uma competição. PS: valores negativos significam que o competidor ainda não iniciou as vendas.
-* Podemos ver que as lojas que têm competidores há mais tempo vendem menos, devido ao segundo gráfico, que mostra um comportamento de decaímento de vendas com o aumento do tempo de competição.
-* Através do heatmap vemos uma correlação fraco para o modelo.
+### H5 - Quanto mais velho o veículo, maior a chance da pessoa se interessar pelo seguro.
+**VERDADEIRO** - A proproção de pessoas que se interessam pelo seguro é maior quando o veículo tem mais de 2 anos, portanto, quando mais velho o veículo, maior a chance da pessoa se interessar pelo seguro.
+* No 1º gráfico observa-se que a quantidade de amostras de clientes com veículo com menos de um ano, e entre um ano e dois, são bem parecidos. A quantidade de clientes com veículos com mais d 2 anos é de 4,2%.
+* Entre aqueles que se interessam pelo seguro, há uma predominância de clientes com veículos entre um e dois anos. Contudo, a proporção de veículos com mais de dois anos apresentou um crescimento considerável.
+* No 3º gráfico vemos que a proporção de clientes interessados pelo seguro é maior naqueles que com veículos com mais de dois anos.
 
 ![H3!](img/h3.png)
 
-### H9. Lojas deveriam vender mais no segundo semestre do ano
-**FALSO**  Lojas vendem MENOS no segundo semestre do ano.
-* Como podemos ver, durante os 6 primeiros meses as lojas vendem mais do que o resto do ano.
-* Correlação muito forte negativamente, essa é considerada uma das variáveis mais importantes para o modelo. 
+### H7 - Quanto mais a pessoa paga de Annual Premium, maior a chance dela se interessar em ter um seguro.
+**FALSO** - Quanto mais a pessoa paga no Annual Premium, menos ela se interessa em adquirir o seguro.
+* Na esquerda vemos os gráficos da relação da quantidade de clientes com o quanto pagam de Annual Premium.
+* Na direita vemos os gráficos da relação da quantidade de clientes que se interessam pelo com o quanto pagam de Annual Premium.
+* Os primeiros gráficos mostram o total de Annual Premium, os segundos dão um zoom nos que pagam menos que 100.000 e os terceiros gráficos mostram os que pagam mais que 100.000.
+* A maioria do clientes pagam menos que 55.000 de Annual Premium, e quanto mais os clientes pagam, menor a quantidade deles na base e menor o interesse no seguro de automóveis.
 
 ![H9!](img/h9.png)
 
-### H10. Lojas deveriam vender mais depois do dia 10 de cada mês
-**VERDADEIRO**  Lojas vendem MAIS após dia 10 de todo mês.
-* Nessa hipótese a ideia era verificar se as vendas no início do mês, no qual geralmente é feito o pagamento de salário, conseguiria alcançar as vendas nos 20 dias restantes do mês.
-* Lojas vendem menos no período inicial de 10 dias de cada mês.
-* Correlação Negativa.
+### H8 - Quanto maior o tempo que a pessoa tem o seguro de vida, maior a chance dela se interessar pelo seguro de carro.
+**FALSO** - Depois de 15 dias, há uma tendência negativa, portanto, quanto maior o vintage, menor a chance da pessoa não se interessar pelo seguro de automóveis.
+* Nos gráficos da 1ª linha vemos a quantidade de clientes que se interessam pelo seguro segmentado por uma faixa de dias que tem o seguro se saúde.
+* Nos gráficos da 2ª linha mostra os mesmos valores, tirand os clientes com vintage entre 0 e 15 dias, que apresentam uma baixa quantidade na base e isso enviésa a análise.
+* Assim, percebemos que a quantidade de clientes em cada faixa de vintage é bem parecido, contudo, quando olhamos para a tendência do gráfico, vamos uma tendência de queda, onde, quando maior a faixa de vintagem, menos clientes se interessam pelo seguro.
 
 ![H10!](img/h10.png)
 
-### H11. Lojas deveriam vender menos aos finais de semana
-**VERDADEIRO** Lojas vendem MENOS aos finais de semana.
-* Tendência de cair as vendas com o passar dos dias da semana.
-* No fim de semana as vendas caem drásticamente, principalmente no domingo.
-* Correlação forte negativamente. Isso significa que se as lojas se encontrarem no período de final de semana, irão vender menos.
-
-![H11!](img/h11.png)
-
 ### Tabela de Insights 
 
-| Hipóteses | Condição| Relevância |
-| :-------- | :------- | :--------  |
-|H1. Lojas com maior sortimento deveriam vender mais|Falsa|Baixa|
-|H2. Lojas com competidores mais próximos deveriam vender menos.|Falsa|Média|
-|H3. Lojas com competidores à mais tempo deveriam vender mais.|Falsa|Média|
-|H4. Lojas com promoções mais ativas por mais tempo deveriam vender mais.|Falsa|Baixa|
-|H5. Lojas com mais dias de promoção deveriam vender mais.| --- |---|
-|H6. Lojas com mais promoções consecutivas deveriam vender mais.|Falsa|Baixa|
-|H7. Lojas abertas durante o feriado de Natal deveriam vender mais|Falsa|Média|
-|H8. Lojas deveriam vender mais ao longo dos anos.|Falsa|Alta|
-|H9. Lojas deveriam vender mais no segundo semestre do ano.|Falsa|Alta|
-|H10 .Lojas deveriam vender mais depois do dia 10 de cada mês.|Verdadeira|Alta|
-|H11 .Lojas deveriam vender menos aos finais de semana.|Verdadeira|Alta|
-|H12 .Lojas deveriam vender menos durante os feriados escolares.|Verdadeira|Baixa|
-
-
-## 4.3 Análise Multivariada
-
-![multivariate-analysis!](img/correlacao_numerica.png)
- 
- ### Correlação entre as variáveis independentes e a variável resposta
- * Variáveis com correlação positiva com sales:
-   * **Média:** > *promo*
-   * **Fraca:** > *competition_open_since_year, promo2_since_year*
-
-* Variáveis com correlação negativa com as vendas:
-  * **Média:** > *day_of_week*
-  * **Fraca:** > *promo2, is_promo*
+| Hipóteses | Condição|
+| :-------- | :------- |
+|H1 - Das pessoas interessadas no seguro, a maioria são homens.|Verdadeira|
+|H2 - Pessoas mais velhas tem uma tendência maior de se interessarem pelo seguro.|Falsa|
+|H3 - Das pessoas interessadas no seguro, a maioria tem licença para dirigir.|Verdadeira|
+|H4 - Das pessoas interessadas no seguro, a maioria tem licença para dirigir.|Verdadeira|
+|H5 - Quanto mais velho o veículo, maior a chance da pessoa se interessar pelo seguro.|Verdadeira|
+|H6 - Pessoas que sofreram batida de carro no passado, estão mais interessadas em adquirir o seguro.|Verdadeira|
+|H7 - Quanto mais a pessoa paga de Anual Premium, maior a chance dela se interessar em ter um seguro.|Falsa|
+|H8 - Quanto maior o tempo que a pessoa tem o seguro de vida, maior a chance dela se interessar pelo seguro.|Falsa|
 
 # 5. Seleção do Modelo de Machine Learning 
 Os seguintes algoritmos de Machine Learning foram aplicados:
-* Mean Average Model (Usado como Baseline);
-* Linear Regression Model;
-* Linear Regression Regularized Model - Lasso;
-* Random Forest Regression;
-* XGBoost Forest Regression;
+* KNN Classifier;
+* Logistic Regression Classifier;
+* Extra Trees Classifier;
+* Random Forest Classifier;
+* XGBoost Forest Classifier;
+* Gaussian Naive Bayes;
 
 O método de cross-validation foi utilizado em todos os modelos.
 
 # 6. Performance do Modelo
-O modelo RandomForestRegressor foi o modelo que apresentou o melhor desempenho em Single Performance, com um percentual de Erro médio (MAPE) de aproximadamente 10%. No entanto nesse projeto foi optado a utilização do modelo **XGBoost Regressor** visto que a performance do modelo é equivalente a RandomForest, e ele lida melhor com base de dados maiores e tende a ser mais rápido em sua etapa de treinamento do modelo.
-
-|Model Name	| MAE	| MAPE	| RMSE|
-|---------|----|----|----|
-|Random Forest Regressor	|667.434016	|0.097598	| 996.039250
-|**XGBoost Regressor**	|**756.970422**	|**0.111236**| **1095.040393**|
-|Average Model	|1354.800353	|0.455150	|1835.141019|
-|Linear Regression	|1867.269017|	0.292706|	2671.589246|
-|Linear Regression Regularized - Lasso	|1891.702083	|0.289165	|2744.462516|
+Para medir o desempenho dos modelos, usaremos o método de validação cruzada que evita que o modelo seja superajustado quando o modelo recebe alguns dados que nunca viu antes (garantindo a generalização). O @K para as métricas da abordagem Ranking-To-Learn é 20.000, sendo a quantidade mínima de tentativas que a empresa quer fazer para atingir o máximo de acertos na base.
 
 A real performance dos modelos utilizando método CROSS-VALIDATION.
 
-|Model Name	|MAE CV	|MAPE CV	|RMSE CV|
-|----------| -------|---------|--------|
-|Random Forest Regression	|843.422+/- 223.13	|0.12 +/- 0.02	|1267.99 +/- 328.10|
-|**XGBoost Regressor**|**1122.76.71 +/- 212.97**	|**0.15 +/- 0.02**	|**1622.56 +/- 317.51**|
-|Linear Regression	|2081.69 +/- 295.46	|0.3 +/- 0.02	|2952.42 +/- 468.15|
-|Linear Regression Regularized	|2116.64 +/- 341.57	|0.29 +/- 0.01	|3057.93 +/- 504.72|
+|Model Name	|Accuracy Balanced	|Precision @K Mean	|Recall @K Mean |ROC AUC Score |Top K Score |
+|----------| -------|---------|--------|--------|--------|
+|**XGBClassifier**|**0.5367 +/- 0.0013**	|**0.2988 +/- 0.0019**	|**0.8005 +/- 0.005**|**0.839 +/- 0.0011**	|**0.8686 +/- 0.0003**|
+|RandomForestClassifier	|0.5452 +/- 0.0013	|0.2914 +/- 0.0015	|0.7806 +/- 0.0039	|0.8306 +/- 0.0009	|0.865 +/- 0.0004|
+|GaussianNB	|0.784 +/- 0.0003	|0.29 +/- 0.0021	|0.7769 +/- 0.0056	|0.8259 +/- 0.0021	|0.6384 +/- 0.0002|
+|ExtraTreesClassifier	|0.5515 +/- 0.0018	|0.2875 +/- 0.0017	|0.7703 +/- 0.0046	|0.825 +/- 0.0009	|0.8599 +/- 0.0003|
+|LogisticRegression		|0.5 +/- 0.0	|0.2754 +/- 0.0019	|0.7379 +/- 0.005	|0.817 +/- 0.0023	|0.8776 +/- 0.0|
+|KNeighborsClassifier	|0.5489 +/- 0.0006	|0.2743 +/- 0.0014	|0.7349 +/- 0.0037	|0.7811 +/- 0.0012	|0.8609 +/- 0.0004|
 
-Escolhido o modelo de Regressão XGBoost partimos para a etapa de HyperParamater Fine-Tuning que consiste em encontrar os melhores parâmetros de treino para maximizar o aprendizado do modelo, usamos o Random Search e definimos os parâmetros através do melhor resultado encontrado. Após encontrarmos os valores ótimos para o modelo por meio do método RandomSearch os valores finais de desempenho do modelo foram:
+Além do Cross-Validation, foi comparado o ganho de todos os modelos testados e o resultado pode ser visto na imagem abaixo:
 
+![H10!](img/h10.png)
 
-## Final-Performance Fine-Tuned CV Model
-|Model Name | MAE CV | MAPE CV | RMSE CV |
-|-----|----|----|-----
-|XGBoost Regressor | CV	687.286713 |0.101122	|990.867971
+O Modelo Final escolhido foi o XGBoost Classifier, devido ao seu melhor Recall com 20.000 tentativas e sua melhor performance para atingir um total de 80% de acertos. Os parâmetros da performance final estão abaixo.
+
+|Model Name	|Accuracy Balanced	|Precision @K Mean	|Recall @K Mean |ROC AUC Score |Top K Score |
+|----------| -------|---------|--------|--------|--------|
+|**XGBClassifier**|**0.5015**	|**0.3361**	|**0.7253**	|**0.8607**	|**0.8779**
 
 # 7. Resultados de Negócio
-Com base no método atual de previsão de vendas é possível analisarmos a diferença de performance entre o modelo utilizado (Average Model) e o modelo proposto XGBoost Regressor.
+Com base no método atual de previsão de ordenação de clientes é possível analisarmos a diferença de performance entre o modelo utilizado (Modelo Aleatório) e o modelo proposto XGBoost Classifier. 
 
-**Modelo Atual baseado na média de vendas**
+Considerando o modelo aletório como a ordenação inicial da lista. A lista apresenta no total **9.526** clientes interessados em adquirir o seguro de automóveis.
 
-|Cenário| Valores|
-|---|---|
-| Predição| R$280.754.389,45| 
+## 7.1 Qual é a porcentagem de interesse dos clientes em adquirir um seguro de automóvel que a equipe de vendas conseguirá atingir com 20.000 ligações?
 
-**Modelo XGBoost sugerido**<br>
-A diferença é com relação o modelo atual de previsão e o modelo treinando nesse projeto.
-|Cenário|Valores|Diferença|
+Para responder essa pergunta foi plotado o a curva de ganho acumulado e a curva lift, destacando o ponto que representa 20.000 clientes do total da base.
+
+![H10!](img/h10.png)
+
+Através disso percebemos:
+
+**- Entrando em contato com os Top 20.000 clientes da lista (26,24% de toda a base), eu encontraria 72,53% de todos aqueles interessados pelo seguro.**
+
+**- Selecionando apenas os Top 20.000 clientes da lista, o modelo proposto é aproximadamente 2,75 melhor que o modelo aleatório.**
+
+Se considerarmos que o preço fixo do seguro é de U$ 2.000,00 por ano e não colocando na questão o custo de cada ligação para a empresa teremos os seguintes resultados:
+
+|Modelo|Pessoas Interessadas|% de Acertos|Receita|
+|------|------|------|------|
+|Modelo Aleatório|	2.448|26,45%|U$4.895.653,00|
+|XGBoost Classifier|	6.713|72,53%|U$13.426.593,00|
+|Diferença entre os modelos|	4.265|-----|-----|U$8.530.940,00|
+
+**- Dessa forma, caso a empresa queira selecionar apenas os Top 20.000 da lista, o modelo proposta atinge 4.265 mais clientes interessados que o modelo aletório, gerando U$8,5 Milhões a mais de receita anual.**
+
+## 7.2 Qual é a porcentagem de interesse dos clientes em adquirir um seguro de automóvel que a equipe de vendas conseguirá atingir com 40.000 ligações?
+
+Para responder essa pergunta foi plotado o a curva de ganho acumulado e a curva lift, destacando o ponto que representa 40.000 clientes do total da base.
+
+![H10!](img/h10.png)
+
+Através disso percebemos:
+
+**- Entrando em contato com os Top 40.000 clientes da lista (52,48% de toda a base), eu encontraria 99,34% de todos aqueles interessados pelo seguro.**
+
+**- Selecionando apenas os Top 40.000 clientes da lista, o modelo proposto é aproximadamente 1,9 melhor que o modelo aleatório.**
+
+Se considerarmos que o preço fixo do seguro é de U$ 2.000,00 por ano e não colocando na questão o custo de cada ligação para a empresa teremos os seguintes resultados:
+
+|Modelo|Pessoas Interessadas|% de Acertos|Receita|
+|------|------|------|------|
+|Modelo Aleatório|	4.825|52,13%|U$9.649.490,00|
+|XGBoost Classifier|	9.195|99,34%|U$18.390.158,00|
+|Diferença entre os modelos|	4.370|-----|-----|U$8.740.668,00|
+
+**- Dessa forma, caso a empresa queira selecionar apenas os Top 40.000 da lista, o modelo proposta atinge 4.370 mais clientes interessados que o modelo aletório, gerando U$8,7 Milhões a mais de receita anual.**
+
+## 7.3 Quantas ligações a equipe de vendas precisa para atingir 80% dos clientes interessados em contratar um seguro de automóvel?
+
+Para responder essa pergunta o contrário foi feito. A priori podemos observar a curva de ganho com a marcação no ganho de 80%, conrrespondendo a 30,25% do total da base.
+
+![H10!](img/h10.png)
+
+Com isso, podemos perceber:
+
+|Modelo|Qtde de ligações|% da Base|
 |------|------|------|
-|Predições|	R$284,615,072.00|R$3.860.682,55|
-|Pior Cenário|	R$283,844,721.87|R$3.090.332,42|
-|Melhor Cenário|	R$285,385,428.41|R$4.631.038,96|
+|Modelo Aleatório|	61.161|80,24%|
+|XGBoost Classifier|	23.057|30,25%|
+|Diferença entre os modelos|	38.104|-----|
 
-O modelo XGboost teve um bom desempenho para as lojas Rossman, porém tivemos algumas lojas as quais o MAPE ficou muito acima do normal, como podemos ver nas tabelas e gráficos abaixo:
-
-* Nesse gráfico, podemos observar a distribuição dos erros MAPE para todas as lojas da rede Rossman. É importante notar que existem algumas lojas em específico que são mais desafiadoras que outras na previsão das vendas. Porém, é razoável assumir que nosso modelo desempenhou bem de maneira geral visto que a maioria das nossas lojas está concentrada em uma área com um MAPE próximo a 10%. É claro que, o CEO e a equipe de negócio devem analisar esses dados e definir se é "aceitável" esse valor de erro ou não. 
-![error!](img/store_x_mape.png)
-
-* Alguns outros gráficos foram plotados com objetivo de fornecer um maior entendimento ao time de negócio como o nosso modelo se comporta de maneira geral. O 1º gráfico nos mostra os valores de vendas (linhas azuis) e a predição do modelo (linhas laranjas) das últimas 6 semanas de venda. Como podemos ver, nosso modelo se comporta muito bem, acompanhando de perto as vendas reais.
-
-* No 2º gráfico é representado a taxa de erros com relação às vendas. Essa taxa é calculada pela razão entre os valores preditos e os valores reais de venda observados. Visto que o modelo não possui taxas muito exorbitantes, podemos assumir que ele teve um bom desempenho.
-
-* No 3º gráfico podemos ver a distribuição da taxa de erro, que tem como característica uma forma normal cujo centro está tendendo a 0.
-
-* O 4º gráfico demonstra a dispersão que representa as previsões realizadas em relação aos erros de cada dia de venda. Idealmente, nós teríamos nossos pontos concentrados e formaríamos uma espécie de "tubo", pois dessa forma ela representaria uma baixa variação de erro em todos valores que a previsão de vendas poderia assumir.
-![erro2](img/ml_performance.png)
+**- Dessa forma, caso a empresa tenha como objetivo alcançar 80% do total de interessados, no modelo proposto ela alcançará esse resultado com 38.104 ligações a menos que o modelo aletório, gerando muita economia e gastando menos tempo da sua equipe de vendas.**
 
 
 # 8. Modelo em Produção
