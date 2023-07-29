@@ -277,7 +277,7 @@ Veja um vídeo do funcionamento.
 </div><br>
 
 Caso tenha alguns desses problemas, faça:<br>
-- **O botão não apareceu** - Se o botão não apareceu, clique em "Extensões", depois em "Apps Script", e uma tela irá abrir com o código pronto. Clique em "Executar", volte a planilha e aguarde alguns segundos. Caso o código não apareça ao abrir o Apps Script, pode colar o código que está no arquivo "[googlesheet.gs](https://github.com/ian-alves-sousa/health_insurance_ordenation_prediction/blob/main/googlesheet.gs)", aqui no repositório.<br>
+- **O botão não apareceu** - Se o botão não apareceu, clique em "Extensões", depois em "Apps Script", e uma tela irá abrir com o código pronto. Clique em "Executar", volte a planilha e aguarde alguns segundos. Caso o código não apareça ao abrir o Apps Script, pode colar o código que está no arquivo "[googlesheet.gs](https://github.com/ian-alves-sousa/health_insurance_ordenation_prediction/blob/main/googlesheet.gs)", neste repositório.<br>
 - **Está ocorrendo um erro ao clicar no botão** - Pode ser algum tipo de dado errado, ou falta algum dados em alguma célula, dessa forma, entre em contato comigo através do [Linkedin](https://www.linkedin.com/in/ian-alves-sousa/), estou sempre a disposição.
 
 # 9. Conclusão
