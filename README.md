@@ -271,34 +271,34 @@ A ideia é colocar quaisquer linhas que deseja ordenar na planilha, e clicar no 
 Com isso, caso os dados tenham sido colocados da maneira correta, ele irá retornar uma nova coluna, na colna L, com o Score, ou seja, a propensão desse cliente se interessar pelo seguro de automóveis, além disso, a lista voltará já ordenada pelo score.
 
 Veja um vídeo do funcionamento.
-
+<br>
 <div align="center">
 <img src="img/googlesheets.gif" />
 </div>
-
+<br>
 Caso tenha alguns desses problemas, faça:
 - **O botão não apareceu** - Se o botão não apareceu, clique em "Extensões", depois em "Apps Script", e uma tela irá abrir com o código pronto. Clique em "Executar", volte a planilha e aguarde alguns segundos. Caso o código não apareça ao abrir o Apps Script, pode colar o código que está no arquivo "[googlesheet.gs](https://github.com/ian-alves-sousa/health_insurance_ordenation_prediction/blob/main/googlesheet.gs)", aqui no repositório.
 - **Está ocorrendo um erro ao clicar no botão** - Pode ser algum tipo de dado errado, ou falta algum dados em alguma célula, dessa forma, entre em contato comigo através do [Linkedin](https://www.linkedin.com/in/ian-alves-sousa/), estou sempre a disposição.
 
 # 9. Conclusão
-Nesse projeto, foram realizadas todas as etapas necessárias para a implementação de um projeto completo de Data Science em um ambiente de produção. Foi utilizado o método de gerenciamento de projeto chamado CRISP-DM/DS e obteve-se um desempenho satisfatório utilizando o modelo de Regressão XGBoost para realizar a previsão de venda das lojas da rede Rossman para as próximas 6 semanas.
+Neste projeto, todas as etapas necessárias foram realizadas para implementar um projeto completo de Ciência de Dados em um ambiente de produção. Foi utilizado o método de gerenciamento de projetos denominado CRISP-DM/DS e obteve-se um desempenho satisfatório utilizando o modelo Classificador XGBoost para ranquear os clientes com maior propensão de obtenção do novo seguro: o seguro de automóveis.
 
-Vários Insights de Negócio foram gerados durante a Análise Exploratória de dados que ajudaram o CEO, junto ao time de negócio e o cientista de dados a entenderem melhor o negócio. Tendo em vista esses resultados, o projeto alcançou seu objetivo de encontrar uma solução simples e assertiva para previsão de vendas das lojas, disponibilizando um BOT no Telegram que retorna as previsões geradas pelo modelo de forma rápida e eficaz.
+Alguns Business Insights foram gerados durante a Análise Exploratória de Dados que ajudaram o CEO, a equipe de negócios e o cientista de dados a entender melhor o negócio. Diante desses resultados, o projeto atingiu seu objetivo de encontrar uma solução assertiva de ranqueamento de clientes de forma a otimizar a eficácia da equipe de vendas no contato com seus clientes.
+
+Com o modelo em produção, a expectativa é que ele seja pelo menos 2,5x mais eficaz em fazer com que os clientes adquiram o novo produto de seguro de automóveis. Para atingir cerca de 80% dos interessados em adquirir o seguro auto é preciso atingir apenas 30% dos clientes da base de dados.
 
 # 10. Aprendizados e Trabalhos Futuros
 
 **Aprendizados**
 
-* Esse problema de predição foi resolvido utilizando técnicas de Regressão adaptadas a Time-Series.
+* Esse problema de classificação foi resolvido de uma forma diferente dos normais problemas desse tipo, ao invés de classificar os resultados, utilizamos uma abordagem de Learn To Rank, afim de ordenar os clientes baseado em sua propensão para se interessar ao novo produto.
 
-* A escolha do modelo de Machine Leaning deve-se levar em consideração não só a performance do modelo em si, mas também sua generabilidade, levando em consideração o custo de implementação, a dificuldade e tempo de execução de todo projeto.
+* Como é uma abordagem diferente, outras métricas foram aplicadas aos modelos, e apesar de seus resultados aproximados, o escolhido foi o que apreentou a melhor performance para resolver o problema de negócios. Assim, o aprendizado nesse quesito foi, mesmo que as métricas sejam boas, o melhor modelo será aquele que resolve melhor o problema, que nesse caso era atingir o máximo de clientes interessados dos Top 20.000 clintes da base.
 
 * A Análise Exploratória de Dados se demonstrou uma das etapas mais importantes do projeto, pois é nessa parte que podemos encontrar Insights de Negócio que promovem novos conhecimentos e até contradições que nos fazem repensar o negócio como um tudo. Essa análise também fornece ao cientista de dados uma "direção" de como melhorar seu modelo, por meio da criação de novas features e diferentes tipos de abordagem.
 
 **Trabalhos Futuros**
-* Entender melhor as lojas com taxas de erros muito elevadas e trabalhar talvez e um modelo específico para elas.
-* Criar novas features a partir de variáveis com correlação forte com a variável resposta.
-* Criar um modelo específico para analisarmos o número de clientes de cada loja.
-* Tentar métodos de Encoding diferentes para melhor performance do modelo.
-* Fazer outro Fine Tuning, afim de encontrar um um erro menor e com isso melhorar a performance do modelo.
-* Apresentar mais opções de mensagens no Telegram, podendo adicionar mais de uma loja por mensagem, com mais condicionais.
+* Criar novas features, afim de explicar com mais eficiência o os fenômenos do problema e consequentemente gerar resultados melhores.
+* Testar diferentes Encoders na preperação dos dados.
+* Aplicar o balanceamento dos dados e entender como isso influencia na resolução desse problema.
+* Gerar mais insights relacionando diferentes colunas, isso ajudará a criar novas features.
