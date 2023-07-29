@@ -1,5 +1,3 @@
-# Vou fazer o README AINDA - Usando como base o abaixo
-
 # Health Insurance Cross Sell Prediction
 
 <div align="center">
@@ -264,21 +262,23 @@ Com isso, podemos perceber:
 # 8. Modelo em Produção
 O modelo de Machine Learning foi implementado e colocado em produção por meio da plataforma Render (https://render.com), que tem como objetivo possibilitar a criação, execução e operação de aplicativos inteiramente localizados em nuvem. 
 
-## Esquemático do modelo em produção
+## Como acessar
 
-<div align="center">
-<img src="img/telegram_modelo.png" />
-</div>
-<br>
-Além do modelo em si presente na nuvem, foi criado um BOT no aplicativo do Telegram que possibilita ao CEO e os time de negócio da empresa realizarem consultas da previsão de vendas das lojas nas próximas 6 semanas de forma simples e direta. Basta apenas utilizar um smartphone e enviar uma mensagem ao bot no Telegram localizado no endereço: http://t.me/projeto_rossmann_bot.
+O modelo em produção mostra sua aplicabilidade através de uma planilha no Google Sheets. Nessa pasta ([LINK AQUI](https://drive.google.com/drive/folders/1L72w9z1WYvF5ydmMbkPtonF8WjBQqExv?usp=sharing)) há dois arquivos, o arquivo com os dados para inserir no Google Sheets, e a planilha em que ele deve ser adicionado.
 
 Forma de Utilização:
-* Criar conta no Telegram em seu smartphone e abrir o link citado acima.
-* Enviar o número de loja que deseja saber a previsão de venda.
+A ideia é colocar quaisquer linhas que deseja ordenar na planilha, e clicar no botão "Health Insurance - PA004", logo depois em "Get Prediction".
+Com isso, caso os dados tenham sido colocados da maneira correta, ele irá retornar uma nova coluna, na colna L, com o Score, ou seja, a propensão desse cliente se interessar pelo seguro de automóveis, além disso, a lista voltará já ordenada pelo score.
+
+Veja um vídeo do funcionamento.
 
 <div align="center">
 <img src="img/7jwsrw.gif" />
 </div>
+
+Caso tenha alguns desses problemas, faça:
+- **O botão não apareceu** - Se o botão não apareceu, clique em "Extensões", depois em "Apps Script", e uma tela irá abrir com o código pronto. Clique em "Executar", volte a planilha e aguarde alguns segundos. Caso o código não apareça ao abrir o Apps Script, pode colar o código que está no arquivo "[googlesheet.gs](https://github.com/ian-alves-sousa/health_insurance_ordenation_prediction/blob/main/googlesheet.gs)", aqui no repositório.
+- **Está ocorrendo um erro ao clicar no botão** - Pode ser algum tipo de dado errado, ou falta algum dados em alguma célula, dessa forma, entre em contato comigo através do [Linkedin](https://www.linkedin.com/in/ian-alves-sousa/), estou sempre a disposição.
 
 # 9. Conclusão
 Nesse projeto, foram realizadas todas as etapas necessárias para a implementação de um projeto completo de Data Science em um ambiente de produção. Foi utilizado o método de gerenciamento de projeto chamado CRISP-DM/DS e obteve-se um desempenho satisfatório utilizando o modelo de Regressão XGBoost para realizar a previsão de venda das lojas da rede Rossman para as próximas 6 semanas.
