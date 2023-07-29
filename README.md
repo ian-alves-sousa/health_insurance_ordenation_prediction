@@ -3,7 +3,7 @@
 # Health Insurance Cross Sell Prediction
 
 <div align="center">
-<img src="insurance-company.png" />
+<img src="img/insurance-company.png" />
 </div>
 
 # Introdução 
