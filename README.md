@@ -3,7 +3,7 @@
 # Health Insurance Cross Sell Prediction
 
 <div align="center">
-<img src="img/rossmann_logo.png" />
+<img src="insurance-company.png" />
 </div>
 
 # Introdução 
@@ -111,7 +111,7 @@ Foi desenvolvido um script no Google Sheets em que os dados de entrada são os a
 ## 4.1 Análise Univariada
 * Variáveis Numéricas: o histograma abaixo mostra como está organizada a distribuição das variáveis numéricas do nosso conjunto de dados. Mostra a contagem de cada variável numérica do dataset.
 
-![Numerical-Variables!](img/analise_univariada.png)
+![Numerical-Variables!](img/uni.png)
 
 ## 4.2 Análise Bivariada
 ### H2 - Pessoas mais velhas tem uma tendência maior de se interessarem pelo seguro.
@@ -120,7 +120,7 @@ Foi desenvolvido um script no Google Sheets em que os dados de entrada são os a
 * Nos gráficos da 2ª linha podemos ver a relação da idade de clientes que aceitariam o seguro, com a predominância de clientes entre 40 e 50 anos, com uma linha de tendência decrescente, quanto maior a idade menos clientes.
 * Dessa forma, entre os clientes que aceitariam o seguro há uma predominância de clientes mais velhos, contudo, a linha de tendência mostra que quanto mais idade, há menos clientes que aceitariam o seguro.
  
-![H2!](img/h2.png)
+![H2!](img/H2.png)
 
 ### H5 - Quanto mais velho o veículo, maior a chance da pessoa se interessar pelo seguro.
 **VERDADEIRO** - A proproção de pessoas que se interessam pelo seguro é maior quando o veículo tem mais de 2 anos, portanto, quando mais velho o veículo, maior a chance da pessoa se interessar pelo seguro.
@@ -128,7 +128,7 @@ Foi desenvolvido um script no Google Sheets em que os dados de entrada são os a
 * Entre aqueles que se interessam pelo seguro, há uma predominância de clientes com veículos entre um e dois anos. Contudo, a proporção de veículos com mais de dois anos apresentou um crescimento considerável.
 * No 3º gráfico vemos que a proporção de clientes interessados pelo seguro é maior naqueles que com veículos com mais de dois anos.
 
-![H3!](img/h3.png)
+![H5!](img/H5.png)
 
 ### H7 - Quanto mais a pessoa paga de Annual Premium, maior a chance dela se interessar em ter um seguro.
 **FALSO** - Quanto mais a pessoa paga no Annual Premium, menos ela se interessa em adquirir o seguro.
@@ -137,7 +137,7 @@ Foi desenvolvido um script no Google Sheets em que os dados de entrada são os a
 * Os primeiros gráficos mostram o total de Annual Premium, os segundos dão um zoom nos que pagam menos que 100.000 e os terceiros gráficos mostram os que pagam mais que 100.000.
 * A maioria do clientes pagam menos que 55.000 de Annual Premium, e quanto mais os clientes pagam, menor a quantidade deles na base e menor o interesse no seguro de automóveis.
 
-![H9!](img/h9.png)
+![H7!](img/H7.png)
 
 ### H8 - Quanto maior o tempo que a pessoa tem o seguro de vida, maior a chance dela se interessar pelo seguro de carro.
 **FALSO** - Depois de 15 dias, há uma tendência negativa, portanto, quanto maior o vintage, menor a chance da pessoa não se interessar pelo seguro de automóveis.
@@ -145,7 +145,7 @@ Foi desenvolvido um script no Google Sheets em que os dados de entrada são os a
 * Nos gráficos da 2ª linha mostra os mesmos valores, tirand os clientes com vintage entre 0 e 15 dias, que apresentam uma baixa quantidade na base e isso enviésa a análise.
 * Assim, percebemos que a quantidade de clientes em cada faixa de vintage é bem parecido, contudo, quando olhamos para a tendência do gráfico, vamos uma tendência de queda, onde, quando maior a faixa de vintagem, menos clientes se interessam pelo seguro.
 
-![H10!](img/h10.png)
+![H8!](img/H9.png)
 
 ### Tabela de Insights 
 
@@ -187,7 +187,7 @@ A real performance dos modelos utilizando método CROSS-VALIDATION.
 
 Além do Cross-Validation, foi comparado o ganho de todos os modelos testados e o resultado pode ser visto na imagem abaixo:
 
-![H10!](img/h10.png)
+![Comparação!](img/comparacao.png)
 
 O Modelo Final escolhido foi o XGBoost Classifier, devido ao seu melhor Recall com 20.000 tentativas e sua melhor performance para atingir um total de 80% de acertos. Os parâmetros da performance final estão abaixo.
 
@@ -204,7 +204,7 @@ Considerando o modelo aletório como a ordenação inicial da lista. A lista apr
 
 Para responder essa pergunta foi plotado o a curva de ganho acumulado e a curva lift, destacando o ponto que representa 20.000 clientes do total da base.
 
-![H10!](img/h10.png)
+![Q1!](img/q1.png)
 
 Através disso percebemos:
 
@@ -226,7 +226,7 @@ Se considerarmos que o preço fixo do seguro é de U$ 2.000,00 por ano e não co
 
 Para responder essa pergunta foi plotado o a curva de ganho acumulado e a curva lift, destacando o ponto que representa 40.000 clientes do total da base.
 
-![H10!](img/h10.png)
+![Q2!](img/q2.png)
 
 Através disso percebemos:
 
@@ -248,7 +248,7 @@ Se considerarmos que o preço fixo do seguro é de U$ 2.000,00 por ano e não co
 
 Para responder essa pergunta o contrário foi feito. A priori podemos observar a curva de ganho com a marcação no ganho de 80%, conrrespondendo a 30,25% do total da base.
 
-![H10!](img/h10.png)
+![Q3!](img/q3.png)
 
 Com isso, podemos perceber:
 
