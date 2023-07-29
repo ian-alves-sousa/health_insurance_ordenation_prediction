@@ -266,7 +266,7 @@ O modelo de Machine Learning foi implementado e colocado em produção por meio 
 
 O modelo em produção mostra sua aplicabilidade através de uma planilha no Google Sheets. Nessa pasta ([LINK AQUI](https://drive.google.com/drive/folders/1L72w9z1WYvF5ydmMbkPtonF8WjBQqExv?usp=sharing)) há dois arquivos, o arquivo com os dados para inserir no Google Sheets, e a planilha em que ele deve ser adicionado.
 
-Forma de Utilização:
+## Forma de Utilização:
 A ideia é colocar quaisquer linhas que deseja ordenar na planilha, e clicar no botão "Health Insurance - PA004", logo depois em "Get Prediction".
 Com isso, caso os dados tenham sido colocados da maneira correta, ele irá retornar uma nova coluna, na colna L, com o Score, ou seja, a propensão desse cliente se interessar pelo seguro de automóveis, além disso, a lista voltará já ordenada pelo score.
 
