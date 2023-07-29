@@ -273,7 +273,7 @@ Com isso, caso os dados tenham sido colocados da maneira correta, ele irá retor
 Veja um vídeo do funcionamento.
 
 <div align="center">
-<img src="img/7jwsrw.gif" />
+<img src="img/googlesheets.gif" />
 </div>
 
 Caso tenha alguns desses problemas, faça:
